@@ -42,7 +42,23 @@ app.get('/posts/:id',(req,res)=>{
 })
 app.post('/posts',(req,res)=>{
   res.redirect("/posts");
-  let {username,content}=req.body;
-  req.body.id=uuid();
+let {username,content}=req.body;
+let newId=uuid();
+  req.body.id=newId;
   arr.push(req.body);
 })
+
+app.patch('/posts/:id',(req,res)=>{
+  let {id}=req.params;
+    const post=arr.find((p)=>p.id===id);
+  let newContent=req.body.content;
+ post.content=newContent;
+  console.log(post);
+  res.send("Patch request working");
+})
+
+// app.get('/posts/:id/edit',(req,res)=>{
+//   let {id}=req.params;
+  
+//   res.redirect('/posts');
+// });
